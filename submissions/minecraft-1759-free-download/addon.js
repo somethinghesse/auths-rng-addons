@@ -12,6 +12,12 @@
     " LOS POLLOS HERMANOS SPONSORS THE NEW\n FREE MINECRAFT DOWNLOAD REAL 1859!!\n JUST GO TO HTTPS://MINECRAFTFREEREAL.COM\n AND YOU WILL gERT THE FREE\n THE FREE MINECRAFT JUST FOR YOU\n THIS IS TRUE BY THE WAY SO TRUE \n THIS IS THE TRUEST THING EVER?\n YES",
     " DO YOU LOVE MINECRAFT (1692)?\n DO YOU ENJOY PLAYING MINECRAFT (1427)?\n THEN DOWNLOAD IT RIGHT NOW!!!! (REAL)\n DO IT. I KNOW YOU WANT TO.\n GO TO HTTPS://MINECRAFTFREEREAL.COM TO GET\n YOUR OWN FREE FREE COPY OF THE\n BEST GAME OF THE MILLENIUM!!!\n YAY!!!!!!!!"
   ];
+  let xpos = 0;
+  let ypos = 0;
+  let xinc = 8;
+  let yinc = 16;
+//let zinc = 8; Humor
+  let goCard = false;
 
   function makePopup(text){
     const pop1 = document.createElement("div");
@@ -24,7 +30,7 @@
     pop1.style.position = "fixed";
     pop1.style.fontFamily = "monospace";
     pop1.style.fontSize = "32px";
-    pop1.style.whiteSpace = "pre";
+    pop1.style.whiteSpace = "pre-wrap";
     pop1.style.color = "#00FF00";
     pop1.style.textShadow = "0px 0px 8px green";
     pop1.innerHTML = text;
@@ -42,7 +48,7 @@
     x.style.backgroundImage = "linear-gradient(to bottom, #bf2e3a, #7a272e)";
     x.style.position = "fixed";
     x.style.fontFamily = "monospace";
-    x.style.whiteSpace = "pre";
+    x.style.whiteSpace = "pre-wrap";
     x.style.fontSize = "10px";
     x.innerHTML = "X";
     
@@ -58,9 +64,77 @@
     setTimeout(function() {
       makePopup(texts[Math.floor(Math.random()*3)]);
     }, Math.floor(Math.random()*12+5)*1000);
+    setTimeout(function() {
+      pop1.remove();
+    }, 1000000);
+  }
+
+  function makeCard(xpos, ypos){
+    const card = document.createElement("div");
+    card.style.width = "100px";
+    card.style.height = "150px";
+    card.style.position = "fixed";
+    card.style.display = "flex";
+    card.style.justifyContent = "center";
+    card.style.textAlign = "center";
+    card.style.background = "white";
+    card.style.color = "black";
+    card.innerHTML = "❤\nCLICK\nFAST";
+    card.style.fontSize = "24px";
+    card.style.transform = `translate(${xpos}px, ${ypos}px)`;
+    if(xpos >= window.innerWidth/2-50){
+      xinc = -8;
+    }
+    else if(xpos <= -(window.innerWidth/2-50)){
+      xinc = 8;
+    }
+    if(ypos >= window.innerHeight/2+300){
+      yinc = -16;
+    }
+    else if(ypos <= -(window.innerHeight/2-375)){
+      yinc = 16;
+    }
+    /*if(yincinc >= 16){
+      yincinc = 0.5;
+    }
+    else if(yincinc <= 0.5){
+      yincinc = 2;
+    }*/ // fuck physics
+    xpos += xinc;
+    ypos += yinc;
+    if(goCard){
+      document.body.append(card);
+    }
+    card.onclick = function() {
+      goCard = false;
+      xpos = Math.floor(Math.random()*window.innerWidth)-window.innerWidth/2;
+      ypos = Math.floor(Math.random()*window.innerHeight)-window.innerHeight/2;
+      xinc = -xinc;
+      yinc = -yinc;
+      setTimeout(() => {
+        goCard = true;
+      }, Math.floor(Math.random()*5+2)*1000);
+    };
+    setTimeout(function() {
+      makeCard(xpos, ypos);
+    }, 225);
+    setTimeout(function() {
+      card.style.opacity = "0.12";
+    }, 225);
+    setTimeout(function() {
+      card.remove();
+    }, 2500);
+
+    // ╎ ꖎ𝙹⍊ᒷ ⋮ᔑ⍊ᔑᓭᓵ∷╎!¡ℸ ǁᔑǁ ǁᔑǁ 
   }
 
   setTimeout(function() {
     makePopup(texts[Math.floor(Math.random()*3)]);
+  }, Math.floor(Math.random()*12+5)*1000);
+  setTimeout(function() {
+    makeCard(xpos, ypos);
+  }, 25);
+  setTimeout(() => {
+      goCard = true;
   }, Math.floor(Math.random()*12+5)*1000);
 })();
